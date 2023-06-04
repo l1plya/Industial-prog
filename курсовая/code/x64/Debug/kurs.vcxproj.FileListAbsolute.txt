@@ -1,0 +1,4 @@
+C:\Users\repre\source\repos\kurs\kurs\x64\Debug\kurs.vcxproj.AssemblyReference.cache
+C:\Users\repre\source\repos\kurs\kurs\x64\Debug\kurs.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\repre\source\repos\kurs\kurs\x64\Debug\kurs.MainForm.resources
+C:\Users\repre\source\repos\kurs\kurs\x64\Debug\kurs.vcxproj.GenerateResource.cache
