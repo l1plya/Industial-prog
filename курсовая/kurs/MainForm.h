@@ -16,6 +16,7 @@ namespace kurs {
 		{
 			InitializeComponent();
 			button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
+			ComboBox->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 		}
 
 	protected:
