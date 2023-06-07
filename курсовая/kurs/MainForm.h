@@ -111,7 +111,7 @@ namespace kurs {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(414, 37);
 			this->label2->TabIndex = 2;
-			this->label2->Text = L"Выберите тип уравнения";
+			this->label2->Text = L"Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї СѓСЂР°РІРЅРµРЅРёСЏ";
 			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// pictureBox2
@@ -150,7 +150,7 @@ namespace kurs {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(394, 37);
 			this->label1->TabIndex = 6;
-			this->label1->Text = L"Введите коэффиценты ";
+			this->label1->Text = L"Р’РІРµРґРёС‚Рµ РєРѕСЌС„С„РёС†РµРЅС‚С‹ ";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
 			// label3
@@ -204,7 +204,7 @@ namespace kurs {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(386, 63);
 			this->button1->TabIndex = 10;
-			this->button1->Text = L"Выполнить расчет";
+			this->button1->Text = L"Р’С‹РїРѕР»РЅРёС‚СЊ СЂР°СЃС‡РµС‚";
 			this->button1->UseVisualStyleBackColor = false;
 			// 
 			// textBox1
@@ -264,7 +264,7 @@ namespace kurs {
 			this->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"Решение уравнений";
+			this->Text = L"Р РµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёР№";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -278,45 +278,60 @@ namespace kurs {
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		int equationType = ComboBox->SelectedIndex;
-		double a = 0; // Значение по умолчанию для коэффициента A
-		double b = 0; // Значение по умолчанию для коэффициента B
-		double c = 0; // Значение по умолчанию для коэффициента C
+		double a = 0; // Р—РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° A
+		double b = 0; // Р—РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° B
+		double c = 0; // Р—РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° C
 
-		// Проверяем, заполнен ли textBox1
+		// РџСЂРѕРІРµСЂСЏРµРј, Р·Р°РїРѕР»РЅРµРЅ Р»Рё textBox1
 		if (!String::IsNullOrEmpty(textBox1->Text)) {
-			a = Double::Parse(textBox1->Text);
+			if (!Double::TryParse(textBox1->Text, a)) {
+				System::Windows::Forms::MessageBox::Show("Р’РІРµРґРёС‚Рµ С‡РёСЃР»РѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° A");
+				return;
+			}
 		}
 
-		// Проверяем, заполнен ли textBox2
+
+		// РџСЂРѕРІРµСЂСЏРµРј, Р·Р°РїРѕР»РЅРµРЅ Р»Рё textBox2
 		if (!String::IsNullOrEmpty(textBox2->Text)) {
-			b = Double::Parse(textBox2->Text);
+			if (!Double::TryParse(textBox2->Text, b)) {
+				System::Windows::Forms::MessageBox::Show("Р’РІРµРґРёС‚Рµ С‡РёСЃР»РѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° B");
+				return;
+			}
 		}
 
-		// Проверяем, заполнен ли textBox3
+		// РџСЂРѕРІРµСЂСЏРµРј, Р·Р°РїРѕР»РЅРµРЅ Р»Рё textBox3
 		if (!String::IsNullOrEmpty(textBox3->Text)) {
-			c = Double::Parse(textBox3->Text);
+			if (!Double::TryParse(textBox3->Text, c)) {
+				System::Windows::Forms::MessageBox::Show("Р’РІРµРґРёС‚Рµ С‡РёСЃР»РѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° C");
+				return;
+			}
+		}
+
+		if (equationType == -1) {
+			System::Windows::Forms::MessageBox::Show("Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї СѓСЂР°РІРЅРµРЅРёСЏ");
+			return;
 		}
 
 		if (equationType == 0) {
-			System::Windows::Forms::MessageBox::Show("Уравнение верно при любом X");
+			System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РІРµСЂРЅРѕ РїСЂРё Р»СЋР±РѕРј X");
 		}
 		else if (equationType == 1) {
-			System::Windows::Forms::MessageBox::Show("Уравнение не имеет корней");
+			System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РЅРµ РёРјРµРµС‚ РєРѕСЂРЅРµР№");
 		}
 		else if (equationType == 2) {
-			// Решение уравнения типа A*x^2 + B*x + C = 0
+			// Р РµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёСЏ С‚РёРїР° A*x^2 + B*x + C = 0
 			if (a == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент A не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ A РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (b == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент B не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ B РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (c == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент C не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ C РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
@@ -325,51 +340,51 @@ namespace kurs {
 			if (discriminant > 0) {
 				double root1 = (-b + Math::Sqrt(discriminant)) / (2 * a);
 				double root2 = (-b - Math::Sqrt(discriminant)) / (2 * a);
-				System::Windows::Forms::MessageBox::Show("Уравнение имеет два корня: " + root1 + " и " + root2);
+				System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РґРІР° РєРѕСЂРЅСЏ: " + root1 + " Рё " + root2);
 			}
 			else if (discriminant == 0) {
 				double root = -b / (2 * a);
-				System::Windows::Forms::MessageBox::Show("Уравнение имеет один корень: " + root);
+				System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РѕРґРёРЅ РєРѕСЂРµРЅСЊ: " + root);
 			}
 			else {
-				System::Windows::Forms::MessageBox::Show("Уравнение не имеет действительных корней");
+				System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РЅРµ РёРјРµРµС‚ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅС‹С… РєРѕСЂРЅРµР№");
 			}
 		}
 		else if (equationType == 3) {
-			// Решение уравнения типа A*x^2 + B*x = 0
+			// Р РµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёСЏ С‚РёРїР° A*x^2 + B*x = 0
 			if (a == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент A не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ A РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (b == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент B не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ B РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 			if (c != 0) {
-				System::Windows::Forms::MessageBox::Show("Выбран неверный тип уравнения. Коэффициент C должен быть равен 0");
+				System::Windows::Forms::MessageBox::Show("Р’С‹Р±СЂР°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СѓСЂР°РІРЅРµРЅРёСЏ. РљРѕСЌС„С„РёС†РёРµРЅС‚ C РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЂР°РІРµРЅ 0");
 				return;
 			}
 
 			double root1 = 0;
 			double root2 = (-b) / a;
 
-			System::Windows::Forms::MessageBox::Show("Уравнение имеет два корня: " + root1 + " и " + root2);
+			System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РґРІР° РєРѕСЂРЅСЏ: " + root1 + " Рё " + root2);
 		}
 		else if (equationType == 4) {
-			// Решение уравнения типа A*x^2 + C = 0
+			// Р РµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёСЏ С‚РёРїР° A*x^2 + C = 0
 			if (a == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент A не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ A РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (c == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент C не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ C РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (b != 0) {
-				System::Windows::Forms::MessageBox::Show("Выбран неверный тип уравнения. Коэффициент B должен быть равен 0");
+				System::Windows::Forms::MessageBox::Show("Р’С‹Р±СЂР°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СѓСЂР°РІРЅРµРЅРёСЏ. РљРѕСЌС„С„РёС†РёРµРЅС‚ B РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЂР°РІРµРЅ 0");
 				return;
 			}
 
@@ -378,65 +393,65 @@ namespace kurs {
 			if (discriminant > 0) {
 				double root1 = (-b + Math::Sqrt(discriminant)) / (2 * a);
 				double root2 = (-b - Math::Sqrt(discriminant)) / (2 * a);
-				System::Windows::Forms::MessageBox::Show("Уравнение имеет два корня: " + root1 + " и " + root2);
+				System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РґРІР° РєРѕСЂРЅСЏ: " + root1 + " Рё " + root2);
 			}
 			else if (discriminant == 0) {
 				double root = -b / (2 * a);
-				System::Windows::Forms::MessageBox::Show("Уравнение имеет один корень: " + root);
+				System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РѕРґРёРЅ РєРѕСЂРµРЅСЊ: " + root);
 			}
 			else {
-				System::Windows::Forms::MessageBox::Show("Уравнение не имеет действительных корней");
+				System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РЅРµ РёРјРµРµС‚ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅС‹С… РєРѕСЂРЅРµР№");
 			}
 		}
 		else if (equationType == 5) {
-			// Решение уравнения типа A*x^2 = 0
+			// Р РµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёСЏ С‚РёРїР° A*x^2 = 0
 			if (a == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент A не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ A РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (b != 0 || c != 0) {
-				System::Windows::Forms::MessageBox::Show("Выбран неверный тип уравнения. Коэффициенты B и C должны быть равны 0");
+				System::Windows::Forms::MessageBox::Show("Р’С‹Р±СЂР°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СѓСЂР°РІРЅРµРЅРёСЏ. РљРѕСЌС„С„РёС†РёРµРЅС‚С‹ B Рё C РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЂР°РІРЅС‹ 0");
 				return;
 			}
 
 			double root = 0;
-			System::Windows::Forms::MessageBox::Show("Уравнение имеет один корень: " + root);
+			System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РѕРґРёРЅ РєРѕСЂРµРЅСЊ: " + root);
 		}
 		else if (equationType == 6) {
-			// Решение уравнения типа B*x + C = 0
+			// Р РµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёСЏ С‚РёРїР° B*x + C = 0
 			if (b == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент B не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ B РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (c == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент C не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ C РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (a != 0) {
-				System::Windows::Forms::MessageBox::Show("Выбран неверный тип уравнения. Коэффициент A должен быть равен 0");
+				System::Windows::Forms::MessageBox::Show("Р’С‹Р±СЂР°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СѓСЂР°РІРЅРµРЅРёСЏ. РљРѕСЌС„С„РёС†РёРµРЅС‚ A РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЂР°РІРµРЅ 0");
 				return;
 			}
 
 			double root = -c / b;
-			System::Windows::Forms::MessageBox::Show("Уравнение имеет один корень: " + root);
+			System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РѕРґРёРЅ РєРѕСЂРµРЅСЊ: " + root);
 		}
 		else if (equationType == 7) {
-			// Решение уравнения типа B*x = 0
+			// Р РµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёСЏ С‚РёРїР° B*x = 0
 			if (b == 0) {
-				System::Windows::Forms::MessageBox::Show("Коэффициент B не задан");
+				System::Windows::Forms::MessageBox::Show("РљРѕСЌС„С„РёС†РёРµРЅС‚ B РЅРµ Р·Р°РґР°РЅ");
 				return;
 			}
 
 			if (a != 0 || c != 0) {
-				System::Windows::Forms::MessageBox::Show("Выбран неверный тип уравнения. Коэффициенты A и C должны быть равны 0");
+				System::Windows::Forms::MessageBox::Show("Р’С‹Р±СЂР°РЅ РЅРµРІРµСЂРЅС‹Р№ С‚РёРї СѓСЂР°РІРЅРµРЅРёСЏ. РљРѕСЌС„С„РёС†РёРµРЅС‚С‹ A Рё C РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЂР°РІРЅС‹ 0");
 				return;
 			}
 
 			double root = 0;
-			System::Windows::Forms::MessageBox::Show("Уравнение имеет один корень: " + root);
+			System::Windows::Forms::MessageBox::Show("РЈСЂР°РІРЅРµРЅРёРµ РёРјРµРµС‚ РѕРґРёРЅ РєРѕСЂРµРЅСЊ: " + root);
 		}
 	}
 };
